@@ -1,8 +1,9 @@
 window.addEventListener("load", init);
 
 function init() {
-  if (localStorage.getItem("allTaskDataObj") != null) {
+  if (JSON.parse(localStorage.getItem("allTaskDataObj")) > 0) {
     displayTask();
+    setAlarm()
   }
   document.querySelector(".add").addEventListener("click", addTask);
   allData = JSON.parse(localStorage.getItem("allTaskDataObj"));
@@ -11,7 +12,6 @@ function init() {
       element.style.color = "green";
     })
   });
-  setAlarm();
 }
 
 function addTask() {
@@ -89,6 +89,7 @@ function deleteTask(index) {
   }
 }
 function setAlarm() {
+  let index = 0;
   var today = new Date();
   var y = today.getFullYear();
   var mnth = today.getMonth() + 1;
@@ -102,7 +103,7 @@ function setAlarm() {
   }
   let currentDateTime = y + "-" + "0" + mnth + "-" + d + "T" + h + ":" + m;
   let allTaskDataObj = JSON.parse(localStorage.getItem("allTaskDataObj"));
-  let setTimeDate = allTaskDataObj[0].taskDate;
+  let setTimeDate = allTaskDataObj[index].taskDate;
   var smallDateTime = 0;
   for (let i = 0; i < allTaskDataObj.length; i++) {
     for (let j = i + 1; j < allTaskDataObj.length; j++) {
