@@ -1,12 +1,14 @@
 window.addEventListener("load", init);
 
 function init() {
-  if (JSON.parse(localStorage.getItem("allTaskDataObj")) > 0) {
+  if (JSON.parse(localStorage.getItem("allTaskDataObj")).length > 0) {
+    allData = JSON.parse(localStorage.getItem("allTaskDataObj"));
     displayTask();
     setAlarm()
-  }
+  } else
+    allData = [];
   document.querySelector(".add").addEventListener("click", addTask);
-  allData = JSON.parse(localStorage.getItem("allTaskDataObj"));
+
   document.querySelectorAll(".workdone").forEach(element => {
     element.addEventListener("click", function () {
       element.style.color = "green";
