@@ -1,19 +1,18 @@
 window.addEventListener("load", init);
 
 function init() {
+  allData = [];
+  document.querySelector(".add").addEventListener("click", addTask);
   if (JSON.parse(localStorage.getItem("allTaskDataObj")).length > 0) {
     allData = JSON.parse(localStorage.getItem("allTaskDataObj"));
     displayTask();
     setAlarm()
   } else
-    allData = [];
-  document.querySelector(".add").addEventListener("click", addTask);
-
-  document.querySelectorAll(".workdone").forEach(element => {
-    element.addEventListener("click", function () {
-      element.style.color = "green";
-    })
-  });
+    document.querySelectorAll(".workdone").forEach(element => {
+      element.addEventListener("click", function () {
+        element.style.color = "green";
+      })
+    });
 }
 
 function addTask() {
@@ -116,8 +115,12 @@ function setAlarm() {
     }
   }
   console.log(smallDateTime)
-  if (currentDateTime == smallDateTime) {
+  if (smallDateTime != 0) {
+    if (currentDateTime == smallDateTime) {
+      document.querySelector(".audio").play();
+    }
+  } else if (currentDateTime == setTimeDate) {
     document.querySelector(".audio").play();
   }
-  //setTimeout(setAlarm, 1000);
+  setTimeout(setAlarm, 1000);
 }
